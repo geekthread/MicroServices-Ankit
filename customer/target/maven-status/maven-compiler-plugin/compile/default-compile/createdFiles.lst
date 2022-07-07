@@ -1,0 +1,9 @@
+com\amigosecode\customer\service\CustomerConfig.class
+com\amigosecode\customer\service\CustomerService.class
+com\amigosecode\customer\vo\CustomerRegistrationRequest$CustomerRegistrationRequestBuilder.class
+com\amigosecode\customer\entity\Customer.class
+com\amigosecode\customer\CustomerApplication.class
+com\amigosecode\customer\vo\CustomerRegistrationRequest.class
+com\amigosecode\customer\entity\Customer$CustomerBuilder.class
+com\amigosecode\customer\repository\CustomerRepository.class
+com\amigosecode\customer\controller\CustomerController.class
