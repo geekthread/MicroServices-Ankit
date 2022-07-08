@@ -50,6 +50,7 @@ public class CustomerService {
                 .build();
 
         log.info("Sending notification : " + notificationRequest);
+        //todo ; make this async: i.e. add to a queue
         notificationClient.sendNotification(notificationRequest);
     }
 }
