@@ -1,5 +1,6 @@
 package com.amigosecode.customer.service;
 
+import com.amigosecode.amqp.producer.RabbitMqMessageProducer;
 import com.amigosecode.clients.fraud.FraudCheckResponse;
 import com.amigosecode.clients.fraud.FraudClient;
 import com.amigosecode.clients.notification.NotificationClient;
@@ -20,6 +21,8 @@ public class CustomerService {
     private RestTemplate restTemplate;
     private FraudClient fraudClient;
     private NotificationClient notificationClient;
+
+    private RabbitMqMessageProducer messageProducer;
 
     public void registerCustomer(CustomerRegistrationRequest request) {
         Customer customer = Customer.builder()
@@ -42,7 +45,6 @@ public class CustomerService {
             throw new RuntimeException("Fraudster!!");
         }
 
-        //todo send notification
         NotificationRequest notificationRequest = NotificationRequest.builder()
                 .toCustomerId(customer.getId())
                 .message("Not a Fraud")
@@ -50,7 +52,6 @@ public class CustomerService {
                 .build();
 
         log.info("Sending notification : " + notificationRequest);
-        //todo ; make this async: i.e. add to a queue
-        notificationClient.sendNotification(notificationRequest);
+        messageProducer.publish("internal.exchange", "internal.notification.routing-key",  notificationRequest);
     }
 }
